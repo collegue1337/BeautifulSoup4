@@ -67,7 +67,7 @@ class BeautifulSoupHTMLParser(HTMLParser):
             real_name = int(name)
 
         try:
-            data = unichr(real_name)
+            data = chr(real_name)
         except (ValueError, OverflowError):
             data = u"\N{REPLACEMENT CHARACTER}"
 
