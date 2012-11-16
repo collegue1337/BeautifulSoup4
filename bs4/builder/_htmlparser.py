@@ -11,11 +11,6 @@ from html.parser import (
 import sys
 import warnings
 
-
-str = str
-unicode = str
-bytes = bytes
-basestring = (str,bytes)
 # Starting in Python 3.2, the HTMLParser constructor takes a 'strict'
 # argument, which we'd like to set to False. Unfortunately,
 # http://bugs.python.org/issue13273 makes strict=True a better bet
@@ -68,8 +63,8 @@ class BeautifulSoupHTMLParser(HTMLParser):
 
         try:
             data = chr(real_name)
-        except (ValueError, OverflowError):
-            data = u"\N{REPLACEMENT CHARACTER}"
+        except (ValueError, OverflowError) as e:
+            data = "\N{REPLACEMENT CHARACTER}"
 
         self.handle_data(data)
 
@@ -134,7 +129,7 @@ class HTMLParserTreeBuilder(HTMLTreeBuilder):
         declared within markup, whether any characters had to be
         replaced with REPLACEMENT CHARACTER).
         """
-        if isinstance(markup, unicode):
+        if isinstance(markup, str):
             return markup, None, None, False
 
         try_encodings = [user_specified_encoding, document_declared_encoding]
@@ -149,7 +144,7 @@ class HTMLParserTreeBuilder(HTMLTreeBuilder):
         parser.soup = self.soup
         try:
             parser.feed(markup)
-        except HTMLParseError:
+        except HTMLParseError as e:
             warnings.warn(RuntimeWarning(
                 "Python's built-in HTMLParser cannot parse the given document. This is not a bug in Beautiful Soup. The best solution is to install an external parser (lxml or html5lib), and use Beautiful Soup with that parser. See http://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser for help."))
             raise e

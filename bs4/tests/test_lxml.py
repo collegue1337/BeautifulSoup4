@@ -6,7 +6,7 @@ import warnings
 try:
     from bs4.builder import LXMLTreeBuilder, LXMLTreeBuilderForXML
     LXML_PRESENT = True
-except ImportError, e:
+except ImportError as e:
     LXML_PRESENT = False
 
 from bs4 import (
@@ -46,7 +46,7 @@ class LXMLTreeBuilderSmokeTest(SoupTest, HTMLTreeBuilderSmokeTest):
         # if one is installed.
         with warnings.catch_warnings(record=False) as w:
             soup = BeautifulStoneSoup("<b />")
-            self.assertEqual(u"<b/>", unicode(soup.b))
+            self.assertEqual("<b/>", str(soup.b))
 
     def test_real_xhtml_document(self):
         """lxml strips the XML definition from an XHTML doc, which is fine."""

@@ -22,11 +22,6 @@ XML = 'xml'
 HTML = 'html'
 HTML_5 = 'html5'
 
-str = str
-unicode = str
-bytes = bytes
-basestring = (str,bytes)
-
 
 class TreeBuilderRegistry(object):
 
@@ -162,7 +157,7 @@ class TreeBuilder(object):
                     # value is a whitespace-separated list of CSS
                     # classes. Split it into a list.
                     value = attrs[cdata_list_attr]
-                    if isinstance(value, (str,bytes)):
+                    if isinstance(value, str):
                         values = whitespace_re.split(value)
                     else:
                         # html5lib sometimes calls setAttributes twice
