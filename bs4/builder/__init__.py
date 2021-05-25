@@ -237,7 +237,6 @@ class HTMLTreeBuilder(TreeBuilder):
         "*" : ['class', 'accesskey', 'dropzone'],
         "a" : ['rel', 'rev'],
         "link" :  ['rel', 'rev'],
-        "td" : ["headers"],
         "th" : ["headers"],
         "td" : ["headers"],
         "form" : ["accept-charset"],
